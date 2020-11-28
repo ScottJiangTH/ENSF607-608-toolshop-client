@@ -45,7 +45,7 @@ public class ClientController {
 	}
 
 	public static void main(String[] args) {
-		ClientController client = new ClientController("localhost", 9009);
+		ClientController client = new ClientController("192.168.1.93", 9009);
 		client.communicate();
 	}
 }

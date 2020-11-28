@@ -208,6 +208,14 @@ public class InventoryGUIController {
 		return parseStringMessage();
 	}
 
+	public String addTool(int id, String type, String name, int quantity, double price, int supplierId,
+			String powerRating) {
+		String command = "option,7," + id + "," + type + "," + name + "," + quantity + "," + price + "," + supplierId
+				+ "," + powerRating;
+		socketOut.println(command);
+		return parseStringMessage();
+	}
+
 	public String deleteTool(String itemName) { // by name
 		String command = "option,8," + itemName;
 		socketOut.println(command);
@@ -231,7 +239,7 @@ public class InventoryGUIController {
 		socketOut.println(command);
 		return parseJsonObjectOfOrders();
 	}
-	
+
 	public DefaultTableModel printHistoryOrder(LocalDate date) {
 		String command = "option,18," + date.toString();
 		socketOut.println(command);
@@ -323,7 +331,13 @@ public class InventoryGUIController {
 						JOptionPane.ERROR_MESSAGE);
 			}
 			String type = JOptionPane.showInputDialog("Enter type of the tool: ");
-			String message = addTool(id, type, name, quantity, price, supplierId);
+			String message = "Wrong entry";
+			if (type.equals("non-electrical")) {
+				message = addTool(id, type, name, quantity, price, supplierId);
+			} else if (type.equals("electrical")) {
+				String powerRating = JOptionPane.showInputDialog("Enter power rating of the tool: ");
+				message = addTool(id, type, name, quantity, price, supplierId, powerRating);
+			} 
 			view.setTableModel(getItemList());
 			JOptionPane.showMessageDialog(null, message, "Adding new tool status", JOptionPane.PLAIN_MESSAGE);
 		}

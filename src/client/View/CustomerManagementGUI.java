@@ -34,7 +34,7 @@ public class CustomerManagementGUI extends JFrame {
 	private JRadioButton lastNameFilter = new JRadioButton("Last Name");
 	private JRadioButton typeFilter = new JRadioButton("Customer Type");
 	private JTextField searchBar = new JTextField();
-	private JScrollPane searchResults = new JScrollPane();
+	private JScrollPane searchResultPanel = new JScrollPane();
 	private JTable listTable;
 	
 	private JTextField customerIDField = new JTextField();
@@ -60,36 +60,42 @@ public class CustomerManagementGUI extends JFrame {
 		leftPanelTitle.setTitlePosition(TitledBorder.TOP);
 		leftPanel.setBorder(leftPanelTitle);
 		leftPanel.setLayout(new GridLayout(0, 1));
-		leftPanel.add(new JLabel("Perform searching on:"));
-
+		
+		JPanel filterPanel = new JPanel(new GridLayout(0,1));
 		customerIDFilter.setMnemonic(KeyEvent.VK_B);
 		lastNameFilter.setMnemonic(KeyEvent.VK_B);
 		typeFilter.setMnemonic(KeyEvent.VK_B);
-		leftPanel.add(customerIDFilter);
-		leftPanel.add(lastNameFilter);
-		leftPanel.add(typeFilter);
+		filterPanel.add(new JLabel("Perform searching on:"));
+		filterPanel.add(customerIDFilter);
+		filterPanel.add(lastNameFilter);
+		filterPanel.add(typeFilter);
 		
-		JPanel searchBarPanel = new JPanel(); // Setting up Search Bar
-		searchBarPanel.setLayout(new FlowLayout());
+		JPanel searchBarPanel = new JPanel();
+		searchBarPanel.setLayout(new GridLayout(2,1));
 		searchBar.setPreferredSize(new Dimension(200, 20));
+		searchBarPanel.add(new JLabel("Enter the search parameter below :"));
 		searchBarPanel.add(searchBar);
-		searchBarPanel.add(searchButton);
-		searchBarPanel.add(clearSearchButton);
-		leftPanel.add(new JLabel("Enter the search parameter below :"));
+		JPanel searchButtonPanel = new JPanel();
+		searchButtonPanel.add(searchButton);
+		searchButtonPanel.add(clearSearchButton);
+		
+		leftPanel.add(filterPanel);
 		leftPanel.add(searchBarPanel);
+		leftPanel.add(searchButtonPanel);
 
 //		leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS)); // Setting up search result display panel
 		String[] colName = { "Customer ID", "Customer First Name", "Customer Last Name", "Address", "Postal Code", "Phone", "Type" };
 		DefaultTableModel tableModel = new DefaultTableModel(colName, 10);
 		listTable = new JTable(tableModel);
-		searchResults = new JScrollPane(listTable);
+		searchResultPanel = new JScrollPane(listTable);
 		listTable.setEnabled(false);
 		listTable.setFillsViewportHeight(true);
-		searchResults.setLayout(new ScrollPaneLayout());
+		searchResultPanel.setLayout(new ScrollPaneLayout());
 		TitledBorder resultsPanelTitle = new TitledBorder("Search Results");// add title to the results pane
 		resultsPanelTitle.setTitleJustification(TitledBorder.CENTER);
 		resultsPanelTitle.setTitlePosition(TitledBorder.TOP);
-		searchResults.setBorder(resultsPanelTitle);
+		searchResultPanel.setBorder(resultsPanelTitle);
+		searchResultPanel.setPreferredSize(new Dimension(800,300));
 
 		// setting up information menu
 		TitledBorder informationBorder = new TitledBorder("Customer Information");
@@ -164,7 +170,7 @@ public class CustomerManagementGUI extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().add(leftPanel, BorderLayout.WEST);
 		getContentPane().add(informationPanel, BorderLayout.EAST);
-		getContentPane().add(searchResults, BorderLayout.CENTER);
+		getContentPane().add(searchResultPanel, BorderLayout.CENTER);
 	}
 
 	public void clearInfo() {

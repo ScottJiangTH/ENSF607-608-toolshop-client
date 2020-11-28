@@ -22,7 +22,7 @@ public class InventoryManagementGUI extends JFrame {
 	private JButton checkSupplierById = new JButton("Check Supplier by ID");
 	private JButton printDailyOrder = new JButton("Order of Today");
 	private JButton printHistoryOrder = new JButton("History Order");
-	private JLabel listLabel = new JLabel("Table Display");
+	private JLabel listLabel = new JLabel("Search Result");
 	private JTable listTable;
 	private JScrollPane listScroll;
 
@@ -43,14 +43,13 @@ public class InventoryManagementGUI extends JFrame {
 		DefaultTableModel tableModel = new DefaultTableModel(colName, 10);
 		listTable = new JTable(tableModel);
 		listScroll = new JScrollPane(listTable);
-		listScroll.setSize(800, 400);
+		listScroll.setPreferredSize(new Dimension(800,300));
 		
 		listTable.setEnabled(false);
 		listTable.setFillsViewportHeight(true);
 		txtArea.add(listScroll);
 
 		JPanel buttonPanelLeft = new JPanel();
-		buttonPanelLeft.setSize(100, 400);
 		JPanel buttonPanelRight = new JPanel();
 		buttonPanelLeft.setLayout(new GridLayout(6, 1));
 		buttonPanelRight.setLayout(new GridLayout(6, 1));
@@ -60,12 +59,14 @@ public class InventoryManagementGUI extends JFrame {
 		buttonPanelLeft.add(checkQuantitybyId);
 		buttonPanelLeft.add(checkQuantitybyName);
 		buttonPanelLeft.add(UpdateQuantity);
+		buttonPanelLeft.setPreferredSize(new Dimension(200, 300));
 		buttonPanelRight.add(addTool);
 		buttonPanelRight.add(deleteTool);
 		buttonPanelRight.add(checkSupplierById);
 		buttonPanelRight.add(checkSupplierByName);
 		buttonPanelRight.add(printDailyOrder);
 		buttonPanelRight.add(printHistoryOrder);
+		buttonPanelRight.setPreferredSize(new Dimension(200, 300));
 
 		getContentPane().add(labels, BorderLayout.NORTH);
 		getContentPane().add(new JScrollPane(txtArea), BorderLayout.CENTER);
@@ -73,7 +74,6 @@ public class InventoryManagementGUI extends JFrame {
 		getContentPane().add(buttonPanelRight, BorderLayout.EAST);
 
 	}
-
 
 	public void setTableModel(DefaultTableModel m) {
 		listTable.setModel(m);
