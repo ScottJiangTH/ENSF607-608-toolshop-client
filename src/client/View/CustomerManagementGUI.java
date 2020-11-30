@@ -25,8 +25,6 @@ import javax.swing.table.DefaultTableModel;
 public class CustomerManagementGUI extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	//private Container c = getContentPane();
-
 	private JPanel leftPanel = new JPanel();
 	private JPanel informationPanel = new JPanel();
 
